@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Convite Especial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --verde-principal: #2f6f4e;
+      --verde-claro: #e7f3ed;
+      --verde-escuro: #1f4d37;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background-color: var(--verde-claro);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      color: var(--verde-escuro);
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .buttons {
+      display: none;
+      margin-top: 20px;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    button {
+      padding: 14px 30px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      background-color: var(--verde-principal);
+      color: #ffffff;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: var(--verde-escuro);
+    }
+
+    .message {
+      display: none;
+      margin-top: 22px;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .voltar {
+      display: none;
+      margin-top: 18px;
+      background-color: transparent;
+      color: var(--verde-principal);
+      border: 2px solid var(--verde-principal);
+    }
+
+    .voltar:hover {
+      background-color: var(--verde-principal);
+      color: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Vídeo inicial -->
+    <video id="video1" autoplay playsinline>
+      <source src="video1.mp4" type="video/mp4">
+      Seu navegador não suporta vídeo.
+    </video>
+
+    <!-- Vídeo após SIM -->
+    <video id="video2" playsinline style="display: none;">
+      <source src="video2.mp4" type="video/mp4">
+      Seu navegador não suporta vídeo.
+    </video>
+
+    <!-- Botões -->
+    <div class="buttons" id="buttons">
+      <button id="btnSim">SIM 💖</button>
+      <button id="btnNao">NÃO 😅</button>
+    </div>
+
+    <!-- Mensagem -->
+    <div class="message" id="message"></div>
+
+    <!-- Botão voltar -->
+    <button class="voltar" id="btnVoltar">Voltar</button>
+
+  </div>
+
+  <script>
+    const video1 = document.getElementById("video1");
+    const video2 = document.getElementById("video2");
+    const buttons = document.getElementById("buttons");
+    const message = document.getElementById("message");
+    const btnSim = document.getElementById("btnSim");
+    const btnNao = document.getElementById("btnNao");
+    const btnVoltar = document.getElementById("btnVoltar");
+
+    // Mostrar botões somente após o vídeo 1 terminar
+    video1.addEventListener("ended", () => {
+      buttons.style.display = "flex";
+    });
+
+    // Ação SIM
+    btnSim.addEventListener("click", () => {
+      video1.style.display = "none";
+      buttons.style.display = "none";
+
+      video2.style.display = "block";
+      video2.play();
+
+      message.innerHTML =
+        "Que alegria imensa ter você com a gente 💚<br>Esse momento só faz sentido porque você faz parte da nossa história.";
+      message.style.display = "block";
+    });
+
+    // Ação NÃO
+    btnNao.addEventListener("click", () => {
+      buttons.style.display = "none";
+      message.innerHTML =
+        "Essa opção ainda não está disponível 😅<br>Mas você pode tentar novamente.";
+      message.style.display = "block";
+      btnVoltar.style.display = "inline-block";
+    });
+
+    // Voltar
+    btnVoltar.addEventListener("click", () => {
+      message.style.display = "none";
+      btnVoltar.style.display = "none";
+      buttons.style.display = "flex";
+    });
+  </script>
+
+</body>
+</html>
